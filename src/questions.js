@@ -1,6 +1,6 @@
 const questions = {
   Q1: {
-    text: "Q1. 七対子（チートイツ）ですか？",
+    text: "Q1. 七対子（ﾁｰﾄｲﾂ）ですか？",
     choices: [
       { label: "はい", next: "RESULT", points: 25 },
       { label: "いいえ", next: "Q2" }
@@ -8,7 +8,7 @@ const questions = {
 	image:"/mahjangScoreCalc/images/chitoitsu.png",
   },
   Q2: {
-    text: "Q2. 平和（ピンフ）ですか？",
+    text: "Q2. 平和（ﾋﾟﾝﾌ）ですか？",
     choices: [
       { label: "はい", next: "Q2_1" },
       { label: "いいえ", next: "Q3", points:20 }
@@ -31,7 +31,7 @@ const questions = {
 	image:"/mahjangScoreCalc/images/yakuhai.jpg",
   },
   Q4: {
-    text: "Q4. 待ちの形がリャンメン・シャンポンですか？",
+    text: "Q4. 待ちの形はﾘｬﾝﾒﾝ・ｼｬﾝﾎﾟﾝですか？",
     choices: [
       { label: "はい", next: "Q5"},
       { label: "いいえ", next: "Q5", points: 2 },
