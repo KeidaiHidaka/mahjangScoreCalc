@@ -105,7 +105,7 @@ function App() {
 
   
   if (currentId === "RESULT") {
-    const finalPoints = isOverrideMode
+    const roundUpPoints = isOverrideMode
       ? totalPoints
       : isChiitoitsu
         ? totalPoints
@@ -113,7 +113,7 @@ function App() {
     return (
       <div className="container">
         <Result
-          total={finalPoints}
+          roundUpPoints={roundUpPoints}
           breakdown={breakdown}
           history={history}
           totalPoints={totalPoints} 

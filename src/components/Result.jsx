@@ -3,14 +3,15 @@ import questions from '../questions';
 
 
 
-function Result({ total, breakdown, history }) {
+function Result({ roundUpPoints, breakdown, history,totalPoints }) {
     const last = history[history.length - 1];
 
     const isOverride = last?.override;
-    const displayPoints = isOverride ? last.points : total;
+    const displayPoints = isOverride ? last.points : roundUpPoints;
     return (
     <div>
         <h2>結果：{displayPoints}符</h2>
+        {!isOverride && <h4>※繰り上げ前の符数：{totalPoints}符</h4>}
         {isOverride && <p style={{ color: "red" }}>※例外処理で上書き</p>}
 
         {/* <h3>内訳：</h3>
