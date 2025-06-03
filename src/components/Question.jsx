@@ -7,22 +7,24 @@ function Question({ question, onAnswer}) {
       {question.image && (
         <div style={{ textAlign: "center" }}>
             <img
-            src={question.image}
-            alt="question related"
-            style={{ maxWidth: "70%", height: "auto", marginBottom: "20px" }}
+                src={question.image}
+                alt="question related"
+                style={{ maxWidth: "70%", height: "auto", marginBottom: "20px" }}
             />
         </div>
       )}
 
 
       {question.choices.map((choice, i) => (
-        <button
-          key={i}
-          onClick={() => onAnswer(choice)}
-          style={{ margin: "5px" }}
-        >
-          {choice.label}
-        </button>
+        <div style={{ textAlign: "center",justifyContent: "center", }}>
+            <button
+                key={i}
+                onClick={() => onAnswer(choice)}
+                style={{ margin: "10px"}}
+            >
+            {choice.label}
+            </button>
+        </div>
       ))}
     </div>
   );

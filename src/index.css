@@ -25,11 +25,13 @@ h4 {
   text-align: center;
 }
 
+/* button の width: 100% を削除または上書き */
 button {
-  display: block;
-  width: 100%;
+  display: inline-block; /* 横に並べる */
+  width: auto;            /* 必要な幅に調整 */
+  min-width: 120px;       /* ある程度の最小幅を確保 */
   padding: 12px;
-  margin: 10px 0;
+  margin: 10px;
   font-size: 1rem;
   border: none;
   border-radius: 8px;
@@ -37,6 +39,7 @@ button {
   color: white;
   cursor: pointer;
   transition: background-color 0.2s;
+  text-align: center;
 }
 
 button:hover {
