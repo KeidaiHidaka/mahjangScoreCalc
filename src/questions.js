@@ -32,7 +32,8 @@ const questions = {
     choices: [
       { label: "はい", next: "Q5", points: 2 },
       { label: "いいえ", next: "Q5"},
-    ]
+    ],
+	image:"/mahjangScoreCalc/images/machi.png", // 画像URL（`public/images` に配置）
   },
   Q5: {
     text: "Q5. アガリ方はなんですか？",
