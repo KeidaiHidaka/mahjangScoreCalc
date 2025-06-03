@@ -2,7 +2,6 @@ import { useState } from 'react';
 import questions from './questions';
 import Question from './components/Question';
 import Result from './components/Result';
-import Q8Form from './components/Q8Form';
 
 function App() {
   const [currentId, setCurrentId] = useState("Q1");
@@ -10,94 +9,101 @@ function App() {
   const [breakdown, setBreakdown] = useState([]);
   const [isChiitoitsu, setIsChiitoitsu] = useState(false);
   const [isOverrideMode, setIsOverrideMode] = useState(false);
-
-  const [koutsuCount, setKoutsuCount] = useState(0);
-  const [kanCount, setKanCount] = useState(0);
-  const [repeatState, setRepeatState] = useState({
-    q9Count: 0,
-    q10Count: 0,
-    currentQ9: 0,
-    currentQ10: 0,
-  });
+  const [tempState, setTempState] = useState({});
 
 
   // 🔁 履歴を保存（選択肢や前の質問）
   const [history, setHistory] = useState([]);
 
-  const handleAnswer = ({ next, label, points = 0,override = false }) => {
+  const handleAnswer = ({ next, label, points = 0, override = false, pointsByPon, isPon, pointsByAnkan, isAnkan }) => {
+    // ポン・カンの状態を保持
+    if (isPon !== undefined) {
+      setTempState(prev => ({ ...prev, isPon }));
+    }
+    if (isAnkan !== undefined) {
+      setTempState(prev => ({ ...prev, isAnkan }));
+    }
+
     if (label.includes("チートイツ") || points === 25) {
       setIsChiitoitsu(true);
     }
 
+    let addedPoints = points;
+    let detail = "";
+
+    // 刻子処理
+    if (pointsByPon && tempState.isPon !== undefined) {
+      addedPoints = pointsByPon[tempState.isPon];
+      detail = `${label}: +${addedPoints}符`;
+    }
+
+    if (pointsByAnkan && tempState.isAnkan !== undefined) {
+      addedPoints = pointsByAnkan[tempState.isAnkan];
+      detail = `${label}: +${addedPoints}符`;
+    }
+
+
     if (override) {
-      setIsOverrideMode(true); // override モードにする
-      setTotalPoints(points);
+      setIsOverrideMode(true);
+      // totalPoints を加算しない（内部的に実際の加算はナシ）
       setBreakdown([`${label}: 例外処理で${points}符`]);
       setHistory(prev => [...prev, { id: currentId, label, points, override }]);
       setCurrentId(next);
+
       return;
     }
+    // overrideモード解除
+    setIsOverrideMode(false);
 
-    if (points > 0) {
-      setTotalPoints(prev => prev + points);
-      setBreakdown(prev => [...prev, `${label}: +${points}符`]);
+    if (addedPoints > 0) {
+      setTotalPoints(prev => prev + addedPoints);
+      setBreakdown(prev => [...prev, detail || `${label}: +${addedPoints}符`]);
     } else {
       setBreakdown(prev => [...prev, `${label}`]);
     }
 
-    setHistory(prev => [...prev, { id: currentId, label, points }]);
+    setHistory(prev => [...prev, { id: currentId, label, points: addedPoints, override }]);
     setCurrentId(next);
-  };
 
-  const handleBack = () => {
+
+
     console.log("🧾 history:", history);
     console.log("🔢 totalPoints:", totalPoints);
+    console.log("🛠 handleAnswer debug:", {
+      label,
+      points,
+      pointsByPon,
+      isPon,
+      pointsByAnkan,
+      isAnkan,
+      addedPoints,
+    });
+  };
+
+
+
+  const handleBack = () => {
+    console.log("戻るボタンが押下されました");
     if (history.length === 0) return;
 
-    // 履歴1件削除
     const prev = history[history.length - 1];
-    setHistory(history.slice(0, -1)); // 履歴を1つ戻す
+    setHistory(history.slice(0, -1));
     setCurrentId(prev.id);
 
-    // overrideモード解除
-  // overrideモード解除
-    if (prev.override) {
-      setIsOverrideMode(false);
-    }
-
-    // チートイツ解除（戻った時）
     if (prev.points === 25) setIsChiitoitsu(false);
-    if (isOverrideMode) setIsOverrideMode(false);
 
-    // 点数と内訳を戻す
-    if (prev.points > 0) {
+    // override でなければ点数を巻き戻す
+    if (!prev.override && prev.points > 0) {
       setTotalPoints(prevTotal => prevTotal - prev.points);
     }
+
+    setIsOverrideMode(false); // 一律で解除（←ここでprev.override見てもいいが一律でも可）
     setBreakdown(prevBreakdown => prevBreakdown.slice(0, -1));
   };
 
-  if (currentId === "Q8") {
-    return (
-      <div className="container">
-        <Q8Form onConfirm={(kou, kan) => {
-          if (kou + kan > 4) {
-            alert("コーツとカンツの合計は4以下にしてください。");
-            return;
-          }
-          setKoutsuCount(kou);
-          setKanCount(kan);
-          setRepeatState({
-            q9Count: kou,
-            q10Count: kan,
-            currentQ9: 0,
-            currentQ10: 0,
-          });
-          setCurrentId(kou > 0 ? "Q9" : kan > 0 ? "Q10" : "RESULT");
-        }} />
-      </div>
-    );
-  }
 
+
+  
   if (currentId === "RESULT") {
     const finalPoints = isOverrideMode
       ? totalPoints
@@ -110,6 +116,7 @@ function App() {
           total={finalPoints}
           breakdown={breakdown}
           history={history}
+          totalPoints={totalPoints} 
         />
         <button onClick={handleBack} className="back-button">← 戻る</button>
       </div>
