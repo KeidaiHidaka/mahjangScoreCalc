@@ -3,7 +3,7 @@ import questions from '../questions';
 
 
 
-function Result({ roundUpPoints, breakdown, history,totalPoints }) {
+function Result({ roundUpPoints, history,totalPoints }) {
     const last = history[history.length - 1];
 
     const isOverride = last?.override;
@@ -14,11 +14,6 @@ function Result({ roundUpPoints, breakdown, history,totalPoints }) {
         {!isOverride && <h4>※繰り上げ前の符数：{totalPoints}符</h4>}
         {isOverride && <p style={{ color: "red" }}>※例外処理で上書き</p>}
 
-        {/* <h3>内訳：</h3>
-        <ul>
-        {breakdown.map((line, i) => <li key={i}>{line}</li>)}
-        </ul>
-        <p style={{ marginBottom: '20px' }}>※ 符は10の倍数に切り上げ（チートイツは例外）</p> */}
 
         <h3>📝 質問と回答：</h3>
         <ul>

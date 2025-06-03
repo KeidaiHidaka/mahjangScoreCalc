@@ -6,7 +6,6 @@ import Result from './components/Result';
 function App() {
   const [currentId, setCurrentId] = useState("Q1");
   const [totalPoints, setTotalPoints] = useState(0);
-  const [breakdown, setBreakdown] = useState([]);
   const [isChiitoitsu, setIsChiitoitsu] = useState(false);
   const [isOverrideMode, setIsOverrideMode] = useState(false);
   const [tempState, setTempState] = useState({});
@@ -46,7 +45,6 @@ function App() {
     if (override) {
       setIsOverrideMode(true);
       // totalPoints を加算しない（内部的に実際の加算はナシ）
-      setBreakdown([`${label}: 例外処理で${points}符`]);
       setHistory(prev => [...prev, { id: currentId, label, points, override }]);
       setCurrentId(next);
 
@@ -57,10 +55,7 @@ function App() {
 
     if (addedPoints > 0) {
       setTotalPoints(prev => prev + addedPoints);
-      setBreakdown(prev => [...prev, detail || `${label}: +${addedPoints}符`]);
-    } else {
-      setBreakdown(prev => [...prev, `${label}`]);
-    }
+    } 
 
     setHistory(prev => [...prev, { id: currentId, label, points: addedPoints, override }]);
     setCurrentId(next);
@@ -98,7 +93,6 @@ function App() {
     }
 
     setIsOverrideMode(false); // 一律で解除（←ここでprev.override見てもいいが一律でも可）
-    setBreakdown(prevBreakdown => prevBreakdown.slice(0, -1));
   };
 
 
@@ -114,7 +108,6 @@ function App() {
       <div className="container">
         <Result
           roundUpPoints={roundUpPoints}
-          breakdown={breakdown}
           history={history}
           totalPoints={totalPoints} 
         />

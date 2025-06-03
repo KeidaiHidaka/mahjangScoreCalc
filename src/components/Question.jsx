@@ -1,14 +1,7 @@
-function Question({ question, onAnswer, progressLabel }) {
+function Question({ question, onAnswer}) {
   return (
     <div>
       <h2>{question.text}</h2>
-
-      {/* 👇 進捗ラベルがあれば表示 */}
-      {progressLabel && (
-        <div style={{ marginBottom: "10px", color: "#666", fontSize: "14px" }}>
-          {progressLabel}
-        </div>
-      )}
 
       {question.choices.map((choice, i) => (
         <button
