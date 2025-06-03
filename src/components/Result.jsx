@@ -12,7 +12,7 @@ function Result({ roundUpPoints, history,totalPoints }) {
     <div>
         <h2>結果：{displayPoints}符</h2>
         {!isOverride && <h4>※繰り上げ前の符数：{totalPoints}符</h4>}
-        {isOverride && <p style={{ color: "red" }}>※例外処理で上書き</p>}
+        {isOverride && <h4 style={{ color: "red" }}>※例外処理で符計算上書き</h4>}
 
 
         <h3>📝 質問と回答：</h3>
