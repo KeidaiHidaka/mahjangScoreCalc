@@ -4,14 +4,16 @@ const questions = {
     choices: [
       { label: "はい", next: "RESULT", points: 25 },
       { label: "いいえ", next: "Q2" }
-    ]
+    ],
+	image:"/mahjangScoreCalc/images/chitoitsu.png",
   },
   Q2: {
     text: "Q2. 平和（ピンフ）ですか？",
     choices: [
       { label: "はい", next: "Q2_1" },
       { label: "いいえ", next: "Q3", points:20 }
-    ]
+    ],
+	image:"/mahjangScoreCalc/images/pinfu.png",
   },
   Q2_1: {
     text: "Q2-1. アガリ方はなんですか？",
@@ -146,7 +148,7 @@ const questions = {
 	    { label: "いいえ（明槓）", next: "Q8_1_2", isAnkan: false },
 	    { label: "槓子は1組もない", next: "RESULT" }
 	  ],
-	  image:"/mahjangScoreCalc/images/Kantsu.png", 
+	  image:"/mahjangScoreCalc/images/kantsu.png", 
 	},
 	Q8_1_2: {
 	  text: "Q8-1-2. 槓子（1組目）の牌は？",
@@ -164,7 +166,7 @@ const questions = {
 	    { label: "いいえ（明槓）", next: "Q8_2_2", isAnkan: false },
 	    { label: "槓子はこれ以上ない", next: "RESULT" }
 	  ],
-	  image:"/mahjangScoreCalc/images/Kantsu.png", 
+	  image:"/mahjangScoreCalc/images/kantsu.png", 
 	},
 	Q8_2_2: {
 	  text: "Q8-2-2. 槓子（2組目）の牌は？",
@@ -182,7 +184,7 @@ const questions = {
 	    { label: "いいえ（明槓）", next: "Q8_3_2", isAnkan: false },
 	    { label: "槓子はこれ以上ない", next: "RESULT" }
 	  ],
-	  image:"/mahjangScoreCalc/images/Kantsu.png", 
+	  image:"/mahjangScoreCalc/images/kantsu.png", 
 	},
 	Q8_3_2: {
 	  text: "Q8-3-2. 槓子（3組目）の牌は？",
@@ -200,7 +202,7 @@ const questions = {
 	    { label: "いいえ（明槓）", next: "Q8_4_2", isAnkan: false },
 	    { label: "槓子はこれ以上ない", next: "RESULT" }
 	  ],
-	  image:"/mahjangScoreCalc/images/Kantsu.png", 
+	  image:"/mahjangScoreCalc/images/kantsu.png", 
 	},
 	Q8_4_2: {
 	  text: "Q8-4-2. 槓子（4組目）の牌は？",
